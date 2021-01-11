@@ -6,4 +6,4 @@ mongoose.connect('mongodb://localhost/rastro-db', {
     useFindAndModify: false
 })
     .then(db => console.log('DB is connected'))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
