@@ -2,7 +2,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+
+// Initializations
 const app = express();
+require('./database')
 
 // Settings
 const port = process.env.PORT || 3000
