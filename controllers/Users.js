@@ -1,5 +1,8 @@
 "use strict";
 
+const User = require('../models/User');
+const moment = require('moment');
+
 const users = {}
 
 users.getUser = async (req, res, next) => {
@@ -9,10 +12,38 @@ users.getUser = async (req, res, next) => {
     })
 }
 
-users.create = async (req, res, next) => {
-    console.log(req.body)
-    console.log(req.params)
-    res.send('Post user')
+users.getAllUsers = async (req, res, next) => {
+    res.status(200).json({
+        username: 'Cameron',
+        lastname: 'Tucu'
+    }, {
+        username: 'Jonh',
+        lastname: 'Salchi'
+    })
+}
+
+users.register = async (req, res, next) => {
+    try {
+        let newUser = new User({
+            name: req.body.name,
+            userName: req.body.userName,
+            password: req.body.password,
+            step: 0,
+            createdAt: moment().valueOf(),
+            updatedAt: moment().valueOf()
+        });
+        newUser = await newUser.save();
+        
+        res.status(200).json({
+            message: 'Usuario creado',
+            data: newUser
+        })
+    } catch (err) {
+        res.status(500).json({
+            message:'Usuario no creado',
+            data: err.toString()
+        });
+    }
 }
 
 users.update = async (req, res, next) => {
