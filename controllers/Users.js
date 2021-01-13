@@ -9,9 +9,18 @@ users.getUser = async (req, res, next) => {
     })
 }
 
-users.create = async (req, res, next) => {
+users.getAllUsers = async (req, res, next) => {
+    res.status(200).json({
+        username: 'Cameron',
+        lastname: 'Tucu'
+    }, {
+        username: 'Jonh',
+        lastname: 'Salchi'
+    })
+}
+
+users.register = async (req, res, next) => {
     console.log(req.body)
-    console.log(req.params)
     res.send('Post user')
 }
 
