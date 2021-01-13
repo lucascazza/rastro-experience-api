@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    _id: { 
-        type: String
-    },
     name: { 
         type: String, 
         required: true 
@@ -20,7 +17,23 @@ const userSchema = new Schema({
     password: { 
         type: String, 
         required: true 
+    },
+    step: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    createdAt: { 
+        type: Number, 
+        required: true 
+    },
+    updatedAt: { 
+        type: Number, 
+        required: true 
     }
+},
+{
+    versionKey: false
 });
 
 module.exports = mongoose.model('User', userSchema);
