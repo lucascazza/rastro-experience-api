@@ -14,7 +14,7 @@ module.exports = validations => {
         let errorsData = {};
         errors.array().forEach(error => errorsData[error.param] = error.msg);
         res.status(500).json( {
-            message: res.__('Bad request'),
+            message: 'Bad request',
             data: errorsData
         });
     };
