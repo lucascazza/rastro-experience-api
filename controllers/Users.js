@@ -91,15 +91,19 @@ users.login = async (req, res, next) => {
     }
 }
 
-users.update = async (req, res) => {
+users.updateStep = async (req, res) => {
     try {
-        const user = await User.updateOne({_id: req.params.id }, { $PUT: { 
+        await User.updateOne({ _id: req.params.id }, { 
             step: req.body.step,
             updatedAt: moment().valueOf()
-        }});
+        });
+        
+        const user = await User.findOne({ _id: req.params.id }, {_id: 1, name: 1, userName: 1, step: 1})
+        .exec();
+        
         res.status(200).json({
             message: ('User updated'),
-            data: formatUserData(user)
+            data: user
         });
     } catch (err) {
         res.status(500).json({

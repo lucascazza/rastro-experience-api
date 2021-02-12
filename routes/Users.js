@@ -19,6 +19,8 @@ routes.post('/login', validate([
     check('password').isString()
 ]), users.login);
 
-routes.put('/:id', users.update);
+routes.put('/:id', checkAuth, validate([
+    check('id').isString()
+]), users.updateStep);
 
 module.exports = routes;
