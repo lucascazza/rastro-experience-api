@@ -3,13 +3,11 @@
 const express = require('express');
 const routes = express.Router();
 const users = require('../controllers/Users');
+const checkAuth = require('../middleware/checkAuth');
 const validate = require('../middleware/checkParameters');
 const { check } = require('express-validator');
 
-
-routes.get('/', users.getUser);
-
-routes.get('/all', users.getAllUsers);
+routes.get('/', checkAuth, users.getByUserName);
 
 routes.post('/register', validate([
     check('name').isString(),
@@ -17,8 +15,12 @@ routes.post('/register', validate([
     check('password').isString()
 ]), users.register);
 
-routes.put('/:id', users.update);
+routes.post('/login', validate([
+    check('password').isString()
+]), users.login);
 
-routes.delete('/:id', users.delete);
+routes.put('/:id', checkAuth, validate([
+    check('id').isString()
+]), users.updateStep);
 
 module.exports = routes;
