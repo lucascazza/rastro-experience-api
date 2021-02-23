@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'prod') {
     // }))
 } else {
     app.use(cors({
-        origin: [ 'http://localhost:8080' ],
+        origin: [ '*' ],
         methods: 'PUT, POST, DELETE, GET',
         allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
         maxAge: 86400
