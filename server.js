@@ -1,6 +1,5 @@
 // Dependencies
 const express = require('express');
-const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
@@ -18,22 +17,14 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 app.use(bodyParser.json({ limit: '5mb' }))
 
-
-if (process.env.NODE_ENV === 'prod') {
-    // app.use(cors({
-    //     origin: [ 'http://localhost', /\.agrodreams\.com$/, 'http://admin-aerodreams.s3-website.us-east-2.amazonaws.com' ],
-    //     methods: 'PUT, POST, DELETE, GET',
-    //     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-    //     maxAge: 86400
-    // }))
-} else {
-    app.use(cors({
-        origin: [ 'http://localhost:8080' ],
-        methods: 'PUT, POST, DELETE, GET',
-        allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        maxAge: 86400
-    }))
-}
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
 
 
 // LLama a las rutas
